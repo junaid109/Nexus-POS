@@ -1,0 +1,23 @@
+<Project Sdk="Aspire.AppHost.Sdk/13.1.0">
+
+  <ItemGroup>
+    <ProjectReference Include="..\ApexLedger.PaymentGateway\ApexLedger.PaymentGateway.csproj" />
+    <ProjectReference Include="..\ApexLedger.SettlementService\ApexLedger.SettlementService.csproj" />
+    <ProjectReference Include="..\ApexLedger.ReconciliationWorker\ApexLedger.ReconciliationWorker.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.Kafka" Version="13.1.0" />
+    <PackageReference Include="Aspire.Hosting.Redis" Version="13.1.0" />
+    <PackageReference Include="Aspire.Hosting.SqlServer" Version="13.1.0" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>ad284ae5-6e41-459b-aa0e-ff75ffae34d7</UserSecretsId>
+  </PropertyGroup>
+
+</Project>
