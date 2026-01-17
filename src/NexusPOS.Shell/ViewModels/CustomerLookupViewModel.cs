@@ -20,8 +20,8 @@ namespace NexusPOS.Shell.ViewModels
         [RelayCommand]
         public void Search()
         {
-            // TODO: Implement lookup logic
-             System.Diagnostics.Debug.WriteLine($"Searching for: {CustomerIdentifier}");
+             // Mock success
+             _navigationService.NavigateTo<CustomerOverviewViewModel>();
         }
 
         [RelayCommand]

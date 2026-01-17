@@ -43,6 +43,8 @@ namespace NexusPOS.Shell
             services.AddTransient<HelloViewModel>();
             services.AddTransient<StaffAccessViewModel>();
             services.AddTransient<CustomerLookupViewModel>();
+            services.AddTransient<StaffDashboardViewModel>();
+            services.AddTransient<CustomerOverviewViewModel>();
 
             // Views
             services.AddTransient<MainWindow>();

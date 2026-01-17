@@ -22,6 +22,12 @@
         <DataTemplate DataType="{x:Type vm:CustomerLookupViewModel}">
             <views:CustomerLookupView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:StaffDashboardViewModel}">
+            <views:StaffDashboardView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CustomerOverviewViewModel}">
+            <views:CustomerOverviewView/>
+        </DataTemplate>
         <!-- Future DataTemplates for ScanViewModel, etc. -->
     </Window.Resources>
 

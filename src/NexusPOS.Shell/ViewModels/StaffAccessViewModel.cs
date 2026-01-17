@@ -28,8 +28,7 @@ namespace NexusPOS.Shell.ViewModels
         {
             if (StaffId == "admin" && PinCode == "1234")
             {
-                 // Create a StaffDashboardViewModel later
-                 ErrorMessage = "Login Successful (Dashboard not implemented)";
+                 _navigationService.NavigateTo<StaffDashboardViewModel>();
             }
             else
             {
