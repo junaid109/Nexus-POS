@@ -4,122 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NexusPOS.Shell"
+        xmlns:views="clr-namespace:NexusPOS.Shell.Views"
         xmlns:vm="clr-namespace:NexusPOS.Shell.ViewModels"
         mc:Ignorable="d"
         Title="NexusPOS" Height="768" Width="1024"
         WindowState="Maximized" WindowStyle="None" ResizeMode="NoResize"
         Background="{StaticResource BackgroundGrayBrush}">
     
-
+    <!-- DataTemplates for ViewModels -->
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:HelloViewModel}">
+            <views:HelloView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:StaffAccessViewModel}">
+            <views:StaffAccessView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CustomerLookupViewModel}">
+            <views:CustomerLookupView/>
+        </DataTemplate>
+        <!-- Future DataTemplates for ScanViewModel, etc. -->
+    </Window.Resources>
 
     <Grid Margin="40">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/> <!-- Header -->
-            <RowDefinition Height="*"/>    <!-- Center Hello -->
-            <RowDefinition Height="Auto"/> <!-- Buttons -->
-            <RowDefinition Height="Auto"/> <!-- Instructions -->
-            <RowDefinition Height="Auto"/> <!-- Footer -->
-        </Grid.RowDefinitions>
-
-        <!-- Header -->
-        <StackPanel Grid.Row="0" HorizontalAlignment="Left" Orientation="Vertical">
-             <!-- Simple CSS-like Text Logo -->
-             <TextBlock Text="TESCO" 
-                        Foreground="{StaticResource TescoRedBrush}" 
-                        FontWeight="Bold" 
-                        FontSize="48" 
-                        FontFamily="Arial Black"/>
-             <Rectangle Height="4" Width="150" HorizontalAlignment="Left">
-                 <Rectangle.Fill>
-                     <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                         <GradientStop Color="#00539F" Offset="0.0"/>
-                         <GradientStop Color="#00539F" Offset="0.33"/>
-                         <GradientStop Color="White" Offset="0.33"/>
-                         <GradientStop Color="White" Offset="0.36"/>
-                         <GradientStop Color="#00539F" Offset="0.36"/>
-                         <GradientStop Color="#00539F" Offset="0.66"/>
-                         <GradientStop Color="White" Offset="0.66"/>
-                         <GradientStop Color="White" Offset="0.69"/>
-                         <GradientStop Color="#00539F" Offset="0.69"/>
-                     </LinearGradientBrush>
-                 </Rectangle.Fill>
-             </Rectangle>
-        </StackPanel>
-
-        <!-- Center Hello -->
-        <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,50">
-            <TextBlock Text="{Binding WelcomeMessage}" 
-                       Foreground="{StaticResource TescoBlueBrush}" 
-                       FontWeight="Bold"
-                       FontFamily="Segoe UI"/>
-        </Viewbox>
-
-        <!-- Buttons -->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="Start Scanning" 
-                    Command="{Binding StartScanningCommand}"
-                    Style="{StaticResource PrimaryButtonStyle}" 
-                    Width="300" Height="80"
-                    FontSize="28"
-                    Margin="0,0,20,0"/>
-            <Button Content="Find item" 
-                    Command="{Binding FindItemCommand}"
-                    Style="{StaticResource SecondaryButtonStyle}" 
-                    Width="300" Height="80"
-                    FontSize="28"
-                    Margin="20,0,0,0"/>
-        </StackPanel>
-
-        <!-- Instructions -->
-        <TextBlock Grid.Row="3" 
-                   Text="For Scan as you shop please scan the&#x0a;'Finish shopping' barcode above." 
-                   TextAlignment="Center"
-                   Foreground="#333333"
-                   FontSize="20"
-                   Margin="0,30,0,50"/>
-
-        <!-- Footer -->
-        <Grid Grid.Row="4">
-             <Grid.ColumnDefinitions>
-                 <ColumnDefinition Width="Auto"/>
-                 <ColumnDefinition Width="*"/>
-                 <ColumnDefinition Width="Auto"/>
-             </Grid.ColumnDefinitions>
-             
-             <StackPanel Orientation="Horizontal">
-                 <StackPanel Margin="0,0,30,0">
-                     <Button Style="{StaticResource IconButtonStyle}" Command="{Binding CallAssistanceCommand}">
-                         <!-- Icon Placeholder -->
-                         <Path Data="M10,0 A10,10 0 1,1 0,10 A10,10 0 0,1 10,0 M10,5 L10,15 M5,10 L15,10" Stroke="{StaticResource TescoBlueBrush}" StrokeThickness="2" Stretch="Uniform" Margin="10"/>
-                     </Button>
-                     <TextBlock Text="Assistance" HorizontalAlignment="Center" Foreground="{StaticResource TescoBlueBrush}" FontWeight="SemiBold" Margin="0,5,0,0"/>
-                 </StackPanel>
-                 
-                 <StackPanel Margin="0,0,30,0">
-                     <Button Style="{StaticResource IconButtonStyle}" Command="{Binding ChangeVolumeCommand}">
-                          <Path Data="M0,5 L5,5 L10,0 L10,20 L5,15 L0,15 Z M12,5 A 5,5 0 0,1 12,15" Fill="{StaticResource TescoBlueBrush}" Stretch="Uniform" Margin="12"/>
-                     </Button>
-                     <TextBlock Text="Volume" HorizontalAlignment="Center" Foreground="{StaticResource TescoBlueBrush}" FontWeight="SemiBold" Margin="0,5,0,0"/>
-                 </StackPanel>
-                 
-                  <StackPanel>
-                     <Button Style="{StaticResource IconButtonStyle}" Command="{Binding UseOwnBagCommand}">
-                          <Path Data="M5,5 L15,5 L15,20 L5,20 Z M7,5 A 3,3 0 0,1 13,5" Stroke="{StaticResource TescoBlueBrush}" StrokeThickness="2" Stretch="Uniform" Margin="12"/>
-                     </Button>
-                     <TextBlock Text="Own bag" HorizontalAlignment="Center" Foreground="{StaticResource TescoBlueBrush}" FontWeight="SemiBold" Margin="0,5,0,0"/>
-                 </StackPanel>
-             </StackPanel>
-             
-             <!-- Center Use Own Bag Big Button (Optional, seen in some images) -->
-             <Button Grid.Column="1" 
-                     Content="Use own bag" 
-                     Style="{StaticResource SecondaryButtonStyle}" 
-                     Width="200" Height="50"
-                     FontSize="18"
-                     HorizontalAlignment="Center"
-                     Visibility="Collapsed"/> <!-- Hiding for now to match main clean screen -->
-             
-        </Grid>
-
+        <!-- Content Presenter displays the CurrentViewModel using the defined DataTemplates -->
+        <ContentControl Content="{Binding CurrentViewModel}" />
     </Grid>
 </Window>

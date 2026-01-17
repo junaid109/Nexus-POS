@@ -1,6 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
 using NexusPOS.Application.Interfaces;
+using NexusPOS.Shell.Interfaces;
 using System.Diagnostics;
 
 namespace NexusPOS.Shell.ViewModels
@@ -8,47 +8,32 @@ namespace NexusPOS.Shell.ViewModels
     public partial class MainViewModel : ObservableObject
     {
         private readonly IScannerService _scannerService;
+        private readonly INavigationService _navigationService;
 
         [ObservableProperty]
-        private string welcomeMessage = "Hello.";
+        private ObservableObject currentViewModel;
 
-        public MainViewModel(IScannerService scannerService)
+        public MainViewModel(IScannerService scannerService, INavigationService navigationService, HelloViewModel helloViewModel)
         {
             _scannerService = scannerService;
+            _navigationService = navigationService;
+            
+            // Set initial view
+            CurrentViewModel = helloViewModel;
+
             _scannerService.BarcodeScanned += ScannerService_BarcodeScanned;
             _scannerService.Start();
         }
 
         private void ScannerService_BarcodeScanned(object? sender, string barcode)
         {
-             // Marshaling to UI thread is handled by the platform usually, but in WPF we need Dispatcher.
-             // Since this is a ViewModel, simpler to use App.Current.Dispatcher or a robust UI thread service.
              System.Windows.Application.Current.Dispatcher.Invoke(() => 
              {
-                 WelcomeMessage = $"Scanned: {barcode}";
-                 Debug.WriteLine($"Barcode scanned: {barcode}");
+                 // Global barcode handling (e.g. if on Hello screen, maybe start transaction?)
+                 Debug.WriteLine($"Global Scanner Hook: {barcode}");
+                 
+                 // If we were on Hello screen, we could auto-navigate to Scan screen here.
              });
         }
-
-        [RelayCommand]
-        public void StartScanning()
-        {
-            Debug.WriteLine("Start Scanning Clicked");
-        }
-
-        [RelayCommand]
-        public void FindItem()
-        {
-             Debug.WriteLine("Find Item Clicked");
-        }
-        
-        [RelayCommand]
-        public void CallAssistance() { }
-        
-        [RelayCommand]
-        public void ChangeVolume() { }
-        
-        [RelayCommand]
-        public void UseOwnBag() { }
     }
 }
