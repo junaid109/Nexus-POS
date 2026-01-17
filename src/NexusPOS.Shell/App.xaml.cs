@@ -1,6 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Microsoft.Extensions.DependencyInjection;
 using NexusPOS.Application.Interfaces;
 using NexusPOS.Infrastructure.Services;
+using NexusPOS.Shell.Interfaces;
+using NexusPOS.Shell.Services;
 using NexusPOS.Shell.ViewModels;
 using System;
 using System.Windows;
@@ -23,9 +26,23 @@ namespace NexusPOS.Shell
 
             // Services
             services.AddSingleton<IScannerService, MockScannerService>();
+            
+            // Navigation Setup
+            services.AddSingleton<INavigationService>(provider => 
+                new NavigationService(
+                    viewModelFactory: type => (ObservableObject)provider.GetRequiredService(type),
+                    setCurrentViewModel: viewModel => 
+                    {
+                        var mainViewModel = provider.GetRequiredService<MainViewModel>();
+                        mainViewModel.CurrentViewModel = viewModel;
+                    }
+                ));
 
             // ViewModels
-            services.AddTransient<MainViewModel>();
+            services.AddSingleton<MainViewModel>(); // Main Shell must be Singleton
+            services.AddTransient<HelloViewModel>();
+            services.AddTransient<StaffAccessViewModel>();
+            services.AddTransient<CustomerLookupViewModel>();
 
             // Views
             services.AddTransient<MainWindow>();
