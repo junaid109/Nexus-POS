@@ -1,0 +1,10 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/NexusPOS.Application/NexusPOS.Application.csproj" />
+    <Project Path="src/NexusPOS.Domain/NexusPOS.Domain.csproj" />
+    <Project Path="src/NexusPOS.Infrastructure/NexusPOS.Infrastructure.csproj" />
+    <Project Path="src/NexusPOS.Shell/NexusPOS.Shell.csproj" />
+  </Folder>
+  <Project Path="NexusPOS.AppHost/NexusPOS.AppHost.csproj" />
+  <Project Path="NexusPOS.ServiceDefaults/NexusPOS.ServiceDefaults.csproj" />
+</Solution>
