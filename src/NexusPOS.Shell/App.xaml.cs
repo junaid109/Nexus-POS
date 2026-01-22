@@ -17,6 +17,7 @@ namespace NexusPOS.Shell
 
         public App()
         {
+            InitializeComponent();
             Services = ConfigureServices();
         }
 
