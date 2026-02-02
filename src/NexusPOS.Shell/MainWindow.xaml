@@ -28,6 +28,9 @@
         <DataTemplate DataType="{x:Type vm:CustomerOverviewViewModel}">
             <views:CustomerOverviewView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ScanViewModel}">
+            <views:ScanView/>
+        </DataTemplate>
         <!-- Future DataTemplates for ScanViewModel, etc. -->
     </Window.Resources>
 

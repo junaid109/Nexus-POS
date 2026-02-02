@@ -22,8 +22,7 @@ namespace NexusPOS.Shell.ViewModels
         [RelayCommand]
         public void StartScanning()
         {
-            Debug.WriteLine("Navigating to Scan Screen...");
-            // _navigationService.NavigateTo<ScanViewModel>(); 
+            _navigationService.NavigateTo<ScanViewModel>(); 
         }
 
         [RelayCommand]

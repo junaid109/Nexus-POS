@@ -42,10 +42,24 @@
 
         <!-- Center Hello -->
         <Viewbox Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,50">
-            <TextBlock Text="{Binding WelcomeMessage}" 
+            <TextBlock Name="HelloText"
+                       Text="{Binding WelcomeMessage}" 
                        Foreground="{StaticResource TescoBlueBrush}" 
                        FontWeight="Bold"
-                       FontFamily="Segoe UI"/>
+                       FontFamily="Segoe UI"
+                       Opacity="0">
+                 <TextBlock.Triggers>
+                    <EventTrigger RoutedEvent="TextBlock.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetName="HelloText" 
+                                                 Storyboard.TargetProperty="Opacity" 
+                                                 From="0.0" To="1.0" Duration="0:0:1.5"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                 </TextBlock.Triggers>
+            </TextBlock>
         </Viewbox>
 
         <!-- Buttons -->

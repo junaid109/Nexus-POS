@@ -27,6 +27,7 @@ namespace NexusPOS.Shell
 
             // Services
             services.AddSingleton<IScannerService, MockScannerService>();
+            services.AddSingleton<IClubcardService, MockClubcardService>();
             
             // Navigation Setup
             services.AddSingleton<INavigationService>(provider => 
@@ -46,6 +47,7 @@ namespace NexusPOS.Shell
             services.AddTransient<CustomerLookupViewModel>();
             services.AddTransient<StaffDashboardViewModel>();
             services.AddTransient<CustomerOverviewViewModel>();
+            services.AddTransient<ScanViewModel>();
 
             // Views
             services.AddTransient<MainWindow>();

@@ -23,8 +23,7 @@ namespace NexusPOS.Shell.ViewModels
         [RelayCommand]
         public void StartShopping()
         {
-             // TODO: Go to Scan ViewModel (Phase 2)
-             System.Diagnostics.Debug.WriteLine("Navigate to Scan (Phase 2)");
+             _navigationService.NavigateTo<ScanViewModel>();
         }
     }
 }

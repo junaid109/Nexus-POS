@@ -1,0 +1,97 @@
+<UserControl x:Class="NexusPOS.Shell.Views.ScanView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:NexusPOS.Shell.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="768" d:DesignWidth="1024"
+             Background="{StaticResource BackgroundGrayBrush}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/> <!-- Header -->
+            <RowDefinition Height="*"/>    <!-- Main Content -->
+            <RowDefinition Height="Auto"/> <!-- Footer / Pay -->
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+        <Border Background="White" BorderBrush="#E0E0E0" BorderThickness="0,0,0,1" Padding="20">
+            <DockPanel>
+                <TextBlock Text="TESCO" Foreground="{StaticResource TescoRedBrush}" FontWeight="Bold" FontSize="32" FontFamily="Arial Black" DockPanel.Dock="Left"/>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Right">
+                    <TextBlock Text="Assistance" FontSize="18" Foreground="{StaticResource TescoBlueBrush}" Margin="10,0"/>
+                    <TextBlock Text="Volume" FontSize="18" Foreground="{StaticResource TescoBlueBrush}" Margin="10,0"/>
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <!-- Main Content -->
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>   <!-- Left: Ad/Image -->
+                <ColumnDefinition Width="400"/> <!-- Right: Receipt -->
+            </Grid.ColumnDefinitions>
+
+            <!-- Left: Ads / Last Scanned -->
+            <Border Grid.Column="0" Background="#E6F0FA" Margin="20">
+                <Grid>
+                    <TextBlock Text="Scan your items" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32" Foreground="{StaticResource TescoBlueBrush}" Opacity="0.5"/>
+                    <!-- Placeholder for Image -->
+                    <Path Data="M10,10 L90,10 L90,90 L10,90 Z" Stroke="{StaticResource TescoBlueBrush}" StrokeThickness="2" Opacity="0.1" Stretch="Uniform" Margin="100"/>
+                </Grid>
+            </Border>
+
+            <!-- Right: Virtual Receipt -->
+            <Border Grid.Column="1" Background="White" BorderBrush="#DDDDDD" BorderThickness="1,0,0,0">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Text="Your Basket" FontSize="24" FontWeight="Bold" Margin="20" Foreground="{StaticResource TescoBlueBrush}"/>
+
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <ItemsControl ItemsSource="{Binding BasketItems}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="#EEEEEE" BorderThickness="0,0,0,1" Padding="15">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding Name}" FontSize="18" FontWeight="SemiBold"/>
+                                                <TextBlock Text="{Binding Sku}" FontSize="12" Foreground="Gray"/>
+                                            </StackPanel>
+                                            <TextBlock Grid.Column="1" Text="{Binding Price, StringFormat=£{0:N2}}" FontSize="18" FontWeight="Bold" VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Footer / Pay -->
+        <Border Grid.Row="2" Background="White" BorderBrush="#E0E0E0" BorderThickness="0,1,0,0" Padding="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <!-- Total -->
+                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock Text="Total:" FontSize="28" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <TextBlock Text="{Binding BasketTotal, StringFormat=£{0:N2}}" FontSize="48" FontWeight="Bold" Foreground="{StaticResource TescoBlueBrush}" VerticalAlignment="Center" Margin="0,0,30,0"/>
+                    <Button Content="Pay Now" Command="{Binding PayCommand}" Style="{StaticResource PrimaryButtonStyle}" Background="#008800"/> 
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
