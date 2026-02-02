@@ -19,7 +19,8 @@ namespace NexusPOS.Shell.ViewModels
             _navigationService = navigationService;
             
             // Set initial view
-            CurrentViewModel = helloViewModel;
+            currentViewModel = helloViewModel; // Initialize backing field
+            OnPropertyChanged(nameof(CurrentViewModel)); // Explicitly notify just in case
 
             _scannerService.BarcodeScanned += ScannerService_BarcodeScanned;
             _scannerService.Start();
